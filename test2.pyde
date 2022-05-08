@@ -34,18 +34,24 @@ def mousePressed():
 class Particle:
     pos = PVector(0,0)
     angle = 0
+    # count = 0
     
     def __init__(self):
         self.pos = PVector(random(width),random(height))
         
     def move(self):
+        
         self.angle = noise(self.pos.x/noiseScale , self.pos.y/noiseScale )*noiseStrenth
         self.pos.x += cos(self.angle)
         self.pos.y += sin(self.angle)
         
+        if(self.pos.x>width or self.pos.x<0 or self.pos.y>height or self.pos.y<0 ):
+            self.hitWall()
+        
+        # count += 0.001
         
     def show(self):
         circle(self.pos.x, self.pos.y, 1)
     
-    
-        
+    def hitWall(self):
+        self.pos = PVector(random(width),random(height))
